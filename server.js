@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const app = express();
 const articleRouter = require("./routes/articles");
 const Author = require("./models/article");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 //* Connecting to Mongoose
 //? Here we set up the connection by passing in out ip address NOT localhost and the the name of our database
@@ -23,7 +25,7 @@ app.set("view engine", "ejs");
 app.use("/articles", articleRouter);
 
 app.get("/", async (req, res) => {
-  const articles = await Author.find();
+  const articles = await Author.find().sort({ createdAt: "desc" });
   res.render("articles/index", { articles: articles });
 });
 

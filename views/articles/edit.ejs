@@ -14,13 +14,15 @@
   </style>
   <body>
     <main class="container">
-      <h1><%= article.title %></h1>
-      <span><%= article.createdAt %></span>
-      <div class="">
-        <a href="/">All Articles</a>
-        <a href="/articles/edit/<%= article.id %>">Edit</a>
-      </div>
-      <article><%- article.sanitizedHTML %></article>
+      <h1>Edit Blog Article</h1>
+      <a href="/">Homepage</a>
+      <% if (locals.errorMsg) { %>
+      <h3><%=locals.errorMsg %></h3>
+      <% } %>
+
+      <form action="/articles/<%= article.id %>?_method=PUT" method="post">
+        <%- include("../partials/_formFields") %>
+      </form>
     </main>
   </body>
 </html>
